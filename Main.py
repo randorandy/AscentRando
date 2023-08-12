@@ -152,7 +152,7 @@ def write_rom(game: Game, romWriter: Optional[RomWriter] = None) -> str:
 
 
     rom_clean_path = "roms/Ascent.sfc"
-    rom_name = f"Ascent{game.options.seed}.sfc"
+    rom_name = f"Ascent{game.options.get_file_hash()}.sfc"
     rom1_path = f"roms/{rom_name}"
 
     if romWriter is None :
