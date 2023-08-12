@@ -49,6 +49,16 @@ function read_input_rom(file) {
     }
 }
 
+const onAscentFixChange = () => {
+    const ascent_fix = document.getElementById("ascent_fix")
+    Array.from(document.querySelectorAll('.ascent-fix-description')).forEach((e) => {
+        e.style.display = 'none'
+    })
+    Array.from(document.querySelectorAll('.-'+ascent_fix.value)).forEach((e) => {
+        e.style.display = 'block'
+    })
+}
+window.addEventListener('load', onAscentFixChange)
 
 function setup_form() {
     if (document.querySelector('py-splashscreen')) {
@@ -74,6 +84,8 @@ function setup_form() {
         label.appendChild(span)
         skillZone.appendChild(div)
     })
+    const ascent_fix = document.getElementById("ascent_fix")
+    ascent_fix.addEventListener('input', onAscentFixChange)
 }
 
 
@@ -117,14 +129,15 @@ function setup_roll_button() {
         const activated_trick_names = [];
         
         const fill_select = document.getElementById("fill");
+        const ascent_fix = document.getElementById("ascent_fix");
 
         const params = {
             "fill_choice": fill_select.value,
+            "ascent_fix": ascent_fix.value,
             "can": [],
         };
         Object.keys(SKILLS).forEach((name) => {
             const checkbox = document.querySelector(`[type=checkbox][name=${name}]`);
-            console.log(checkbox)
             if (checkbox.checked) {
                 params.can.push(name)
             }
@@ -184,6 +197,23 @@ function setup_roll_button() {
             spoiler_a.innerText = `download spoiler ${filename}.spoiler.txt`;
             status_div.appendChild(document.createElement("br"));
             status_div.appendChild(spoiler_a);
+
+            // spoiler toggle
+            const spoiler_button = document.createElement('button');
+            spoiler_button.type = 'button';
+            spoiler_button.innerText = "Toggle Spoilers";
+            spoiler_button.addEventListener('click', () => {
+                const { style } = spoiler_pre;
+                style.display = style.display === 'none' ? 'block' : 'none';
+            })
+            status_div.appendChild(document.createElement("br"));
+            status_div.appendChild(spoiler_button);
+
+            // spoiler display element
+            const spoiler_pre = document.createElement('pre');
+            spoiler_pre.innerText = spoiler_text;
+            spoiler_pre.style.display = 'none';
+            status_div.appendChild(spoiler_pre);
         }
         else {
             status_div.innerText = "failed";

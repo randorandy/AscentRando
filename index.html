@@ -12,6 +12,9 @@
       [type=checkbox] {
           margin-right: 4px;
       }
+      .ascent-fix-description {
+          padding-left: 16px;
+      }
     </style>
 </head>
 <body>
@@ -20,14 +23,43 @@
         <input type="file" id="rom" name="rom" accept=".sfc, .smc" />
     </div>
     <div>
-        <label for="fill">fill:</label>
+        <label for="fill">Item Fill Strategy:</label>
 
         <select name="fill" id="fill">
             <option value="D" selected="selected">full random</option>
             <option value="MM">major/minor</option>
-        </select> 
-        <div id="skill-zone"></div>
+        </select>
     </div>
+    <div>
+        <label for="ascent_fix">Ascent Softlock Fix:</label>
+
+        <select name="ascent_fix" id="ascent_fix">
+            <option value="force" selected="selected">Force Key Items</option>
+            <option value="duplicate">Duplicate Key Items</option>
+            <option value="open">Open Past Zones</option>
+            <option value="none">None</option>
+        </select>
+        <div>
+          <div class="ascent-fix-description -force">
+            Key Items are placed in their zones before the rest of the seed is generated
+          </div>
+          <div class="ascent-fix-description -duplicate">
+            If key items are not in their zones, duplicate copies will be placed.
+          </div>
+          <div class="ascent-fix-description -duplicate -force">
+            Zone 1: Morph, Charge, Explosives, Missile<br/>
+            Zone 2: Speed, Varia, Boost Ball and 3 Energy Tanks<br/>
+            Zone 3: Gravity, Space Jump
+          </div>
+          <div class="ascent-fix-description -open">
+            The gray doors preventing backtracking from zone 2 to zone 1 will now be red doors.
+          </div>
+          <div class="ascent-fix-description -none">
+            The game will be unaletered. If you leave an item in a past zone, you softlock.
+          </div>
+        </div>
+    </div>
+    <div id="skill-zone"></div>
     <div>
         <button id="roll-button">roll</button><br /><span>Generation can take up to 90 seconds, and your browser might stop responding.</span>
     </div>
