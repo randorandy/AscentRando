@@ -325,33 +325,9 @@ def args_to_game_options(args):
 if __name__ == "__main__":
     import time
     t0 = time.perf_counter()
-    options = GameOptions(
-        logic=Expert,
-        fill_choice='D',
-        can=[],
-    )
     args = sys.argv[1:]
-    while args:
-        option = args.pop(0)
-        if option in ['-l', '--logic']:
-            logic = args.pop(0).lower()
-            if logic.startswith('e'):
-                options.logic = Expert
-            elif logic.startswith('c'):
-                options.logic = Casual
-            else:
-                print(f'Warning: unrecognized logic option "{logic}"')
-        elif option in ['-s', '--seed']:
-            options.seed = int(args.pop(0))
-        elif option == '-d':
-            options.fill_choice = 'D'
-        elif option == '-mm':
-            options.fill_choice = 'MM'
-        elif option == '--can':
-            options.can = args.pop(0).split(',')
-        else:
-            print(f'Warning: unrecognized option "{option}"')
+    game_options = args_to_game_options(args)
 
-    Main(options)
+    Main(game_options)
     t1 = time.perf_counter()
     print(f"time taken: {t1 - t0}")
