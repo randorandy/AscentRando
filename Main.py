@@ -1,3 +1,4 @@
+from collections import defaultdict
 import random
 import sys
 import os
@@ -114,7 +115,7 @@ def assumed_fill(game: Game) -> tuple[bool]:
         loc["item"] = None
     dummy_locations: list[Location] = []
     loadout = Loadout(game)
-    fill_algorithm = fillers[game.options.fill_choice](game.connections)
+    fill_algorithm = fillers[game.options.fill_choice](game)
     n_items_to_place = fill_algorithm.count_items_remaining()
     assert n_items_to_place <= len(game.all_locations), \
         f"{n_items_to_place} items to put in {len(game.all_locations)} locations"
@@ -286,6 +287,40 @@ def forward_fill(game: Game,
             return True, spoilerSave
     return False, spoilerSave
 
+
+def args_to_game_options(args):
+    args = args[:]
+    options = GameOptions(
+        logic=Expert,
+        fill_choice='D',
+        can=[],
+    )
+    options._inventory = defaultdict(int)
+    while args:
+        option = args.pop(0)
+        if option in ['-l', '--logic']:
+            logic = args.pop(0).lower()
+            if logic.startswith('e'):
+                options.logic = Expert
+            elif logic.startswith('c'):
+                options.logic = Casual
+            else:
+                print(f'Warning: unrecognized logic option "{logic}"')
+        elif option in ['-s', '--seed']:
+            options.seed = int(args.pop(0))
+        elif option == '-d':
+            options.fill_choice = 'D'
+        elif option == '-mm':
+            options.fill_choice = 'MM'
+        elif option == '--can':
+            options.can = args.pop(0).split(',')
+        elif option == '--inventory':
+            names = args.pop(0).split(',')
+            for name in names:
+                options._inventory[name] += 1
+        else:
+            print(f'Warning: unrecognized option "{option}"')
+    return options
 
 if __name__ == "__main__":
     import time

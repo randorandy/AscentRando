@@ -3,12 +3,8 @@ from typing import Optional
 
 from fillAssumed import FillAssumed
 from item_data import Item, Items
-from location_data import majorLocs
-from location_data import Location
+from location_data import majorLocs, Location
 from loadout import Loadout
-
-def is_major(item):
-    return item not in [Items.Missile, Items.Super, Items.PowerBomb]
 
 def match_item_to_location(item, location):
     major_item = item not in [Items.Missile, Items.Super, Items.PowerBomb]
@@ -16,13 +12,26 @@ def match_item_to_location(item, location):
     return major_item == major_location
 
 class FillMajor(FillAssumed):
-    def __init__(self, connections):
-        super().__init__(connections)
+    def __init__(self, game):
+        super().__init__(game)
+
+        # Filter forced_item_locations for m/m
+        filtered_item_locations = []
+        for item, locations in self.forced_item_locations:
+            filtered_locations = [
+                loc for loc in locations
+                if match_item_to_location(item, loc)
+            ]
+            filtered_item_locations.append([item, filtered_locations])
+        self.forced_item_locations = filtered_item_locations
 
     def choose_placement(self,
                          availableLocations: list[Location],
                          loadout: Loadout) -> Optional[tuple[Location, Item]]:
         """ returns (location to place an item, which item to place there) """
+
+        if self.game.ASCENT_FIX == 'force' and self.forced_item_locations:
+            return self.choose_forced_placement()
 
         from_items = (
             self.prog_items if len(self.prog_items) else (

@@ -3,22 +3,48 @@ from typing import Optional
 
 from connection_data import AreaDoor
 from fillInterface import FillAlgorithm
-from item_data import Item, Items
+from item_data import Item, Items, items_unpackable
 from loadout import Loadout
 from location_data import Location, spacePortLocs
 from solver import solve
+import logicExpert
 
 _minor_items = {
-    Items.Missile: 35,
-    Items.Super: 19,
-    Items.PowerBomb: 7,
+    Items.Missile: 39,
+    Items.Super: 11,
+    Items.PowerBomb: 6,
     Items.Energy: 13,
-    Items.Reserve: 6,
-    Items.Weapon: 5,
+    Items.Reserve: 7,
+    Items.Weapon: 8,
     Items.Spark: 3,
 }
 # TODO: verify item counts
 
+# Placing these items outside these areas opens up the possiblity of softlock
+forced_areas = {
+    'zone-1': [Items.Charge, Items.Morph, Items.Bombs, Items.Missile],
+    'zone-2': [
+        Items.Boostball,
+        Items.SpeedBooster,
+        Items.Super,
+        Items.Varia,
+        # need 3 energy tanks to get a shinespark out of zone-2
+        Items.Energy,
+        Items.Energy,
+        Items.Energy,
+    ],
+    'zone-3': [Items.GravitySuit, Items.SpaceJump, Items.PowerBomb],
+}
+
+def get_available_zone_locations(loadout, zone_name):
+    available_locations = []
+    for location in loadout.game.all_locations.values():
+        if location['fullitemname'] == 'Super Get':
+            pass
+        if location['zone'] == zone_name:
+            if logicExpert.location_logic[location['fullitemname']](loadout):
+                available_locations.append(location)
+    return available_locations
 
 class FillAssumed(FillAlgorithm):
     connections: list[tuple[AreaDoor, AreaDoor]]
@@ -28,9 +54,19 @@ class FillAssumed(FillAlgorithm):
     extra_items: list[Item]
     itemLists: list[list[Item]]
 
-    def __init__(self,
-                 connections: list[tuple[AreaDoor, AreaDoor]]) -> None:
-        self.connections = connections
+    def __init__(self, game) -> None:
+        self.game = game
+        self.connections = game.connections
+
+        self.forced_item_locationss = []
+        # TODO ASCENT_FIX should be a CLI option with choices:
+        # force - force items into force item locations
+        # duplicate - check and see if items are in the right zones, if not, replace a random minor or mid level item (energy, reserve, spark, or weapons tank) with it
+        # open - replace brown doors with pink doors to allow backtracking
+        game.ASCENT_FIX = 'force'
+        game.VERBOSE = True
+        if game.ASCENT_FIX in ['force', 'duplicate']:
+            self.forced_item_locations = self.get_forced_locations()
 
         # self.earlyItemList = [
         #     Missile,
@@ -69,6 +105,31 @@ class FillAssumed(FillAlgorithm):
 
         self.itemLists = [self.prog_items, self.extra_items]
 
+    def get_forced_locations(self):
+        # This is highly ascent specific
+        # Get locations for the key items in each zone
+        # "With the bare minimum items to access the zone, the key items will reachable
+        forced_locations = []
+        loadout = Loadout(self.game)
+
+        # You can't leave zone one without these so no reason to force them
+        for item in forced_areas['zone-1']:
+            loadout.append(item)
+
+        for item in forced_areas['zone-2']: # TODO shuffle these?
+            # find a location the item could be, and then add it to the loadout
+            locations = get_available_zone_locations(loadout, 'zone-2')
+            forced_locations.append([item, locations])
+            loadout.append(item)
+
+        # Repeat with zone 3
+        for item in forced_areas['zone-3']: # TODO shuffle these?
+            # find a location the item could be, and then add it to the loadout
+            locations = get_available_zone_locations(loadout, 'zone-3')
+            forced_locations.append([item, locations])
+            loadout.append(item)
+        return forced_locations
+
     def _get_accessible_locations(self, loadout: Loadout) -> list[Location]:
         _, _, locs = solve(loadout.game, loadout)
         return locs
@@ -93,9 +154,29 @@ class FillAssumed(FillAlgorithm):
                     distribution.append(loc)
         return random.choice(distribution)
 
+    def choose_forced_placement(self):
+        # select an item and a random location from the force list
+        forced_item, forced_locations = self.forced_item_locations.pop()
+        forced_location = random.choice(forced_locations)
+        print('forcing', forced_item[0], forced_location['fullitemname'], len(forced_locations))
+
+        # remove the location from the rest of the force lsit
+        for _, locations in self.forced_item_locations:
+            if forced_location in locations:
+                locations.remove(forced_location)
+
+        if forced_item in self.prog_items:
+            self.prog_items.remove(forced_item)
+        else:
+            self.extra_items.remove(forced_item)
+        return forced_location, forced_item
+
     def choose_placement(self,
                          availableLocations: list[Location],
                          loadout: Loadout) -> Optional[tuple[Location, Item]]:
+        if self.game.ASCENT_FIX == 'force' and self.forced_item_locations:
+            return self.choose_forced_placement()
+
         """ returns (location to place an item, which item to place there) """
 
         from_items = (
