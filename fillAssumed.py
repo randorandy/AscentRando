@@ -1,3 +1,4 @@
+from collections import defaultdict
 import random
 from typing import Optional
 
@@ -212,4 +213,13 @@ class FillAssumed(FillAlgorithm):
         pass  # removed in placement function
 
     def validate(self, locations):
-        pass
+        if self.game.options.ascent_fix == 'force':
+            zone_items = defaultdict(list)
+            for loc in self.game.all_locations.values():
+                zone_items[loc['zone']].append(loc['item'])
+            for zone, items in forced_zone_items.items():
+                for item in items:
+                    try:
+                        zone_items[zone].remove(item)
+                    except ValueError as e:
+                        raise ValueError(f'{item[0]} is not in {zone}')
