@@ -21,7 +21,7 @@ _minor_items = {
 # TODO: verify item counts
 
 # Placing these items outside these areas opens up the possiblity of softlock
-forced_areas = {
+forced_zone_items = {
     'zone-1': [Items.Charge, Items.Morph, Items.Bombs, Items.Missile],
     'zone-2': [
         Items.Boostball,
@@ -58,14 +58,13 @@ class FillAssumed(FillAlgorithm):
         self.game = game
         self.connections = game.connections
 
-        self.forced_item_locationss = []
+        self.forced_item_locations = []
         # TODO ASCENT_FIX should be a CLI option with choices:
         # force - force items into force item locations
-        # duplicate - check and see if items are in the right zones, if not, replace a random minor or mid level item (energy, reserve, spark, or weapons tank) with it
+        # duplicate - if necessary, replace a random non-unique item with duplicate key item
         # open - replace brown doors with pink doors to allow backtracking
-        game.ASCENT_FIX = 'force'
-        game.VERBOSE = True
-        if game.ASCENT_FIX in ['force', 'duplicate']:
+        # none - do nothing and risk softlock
+        if game.options.ascent_fix in ['force', 'duplicate']:
             self.forced_item_locations = self.get_forced_locations()
 
         # self.earlyItemList = [
@@ -113,17 +112,17 @@ class FillAssumed(FillAlgorithm):
         loadout = Loadout(self.game)
 
         # You can't leave zone one without these so no reason to force them
-        for item in forced_areas['zone-1']:
+        for item in forced_zone_items['zone-1']:
             loadout.append(item)
 
-        for item in forced_areas['zone-2']: # TODO shuffle these?
+        for item in forced_zone_items['zone-2']: # TODO shuffle these?
             # find a location the item could be, and then add it to the loadout
             locations = get_available_zone_locations(loadout, 'zone-2')
             forced_locations.append([item, locations])
             loadout.append(item)
 
         # Repeat with zone 3
-        for item in forced_areas['zone-3']: # TODO shuffle these?
+        for item in forced_zone_items['zone-3']: # TODO shuffle these?
             # find a location the item could be, and then add it to the loadout
             locations = get_available_zone_locations(loadout, 'zone-3')
             forced_locations.append([item, locations])
@@ -174,7 +173,7 @@ class FillAssumed(FillAlgorithm):
     def choose_placement(self,
                          availableLocations: list[Location],
                          loadout: Loadout) -> Optional[tuple[Location, Item]]:
-        if self.game.ASCENT_FIX == 'force' and self.forced_item_locations:
+        if self.game.options.ascent_fix == 'force' and self.forced_item_locations:
             return self.choose_forced_placement()
 
         """ returns (location to place an item, which item to place there) """

@@ -314,6 +314,8 @@ def args_to_game_options(args):
             options.fill_choice = 'MM'
         elif option == '--can':
             options.can = args.pop(0).split(',')
+        elif option == '--ascent':
+            options.ascent_fix = args.pop(0)
         elif option == '--inventory':
             names = args.pop(0).split(',')
             for name in names:
