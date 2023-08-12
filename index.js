@@ -28,11 +28,14 @@ function read_input_rom(file) {
         const reader = new FileReader();
         reader.onload = function(e) {
             // binary data
-            console.log(e.target.result.length);
-            console.log(e.target.result.substring(0, 64));
             const expected_begin = "data:application/octet-stream;base64,";
+            const chrome_begin = "data:application/vnd.nintendo.snes.rom;base64,";
             if (e.target.result.substring(0, expected_begin.length) === expected_begin) {
                 rom_data = e.target.result.substring(expected_begin.length);
+            }
+            else if (e.target.result.substring(0, chrome_begin.length) === chrome_begin) {
+                // Linix chrome uses a different encoding MIME type
+                rom_data = e.target.result.substring(chrome_begin.length);
             }
             else {
                 console.error(`unexpected file encoding: ${e.target.result.substring(0, 64)}`);
