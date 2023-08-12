@@ -65,6 +65,6 @@ class FillMajor(FillAssumed):
         return self._choose_location(available_locations, 2), item_to_place
 
     def validate(self, game):
-        super().valdiate(game)
+        super().validate(game)
         for location in game.all_locations.values():
             assert match_item_to_location(location['item'], location)

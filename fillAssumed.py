@@ -37,16 +37,6 @@ forced_zone_items = {
     'zone-3': [Items.GravitySuit, Items.SpaceJump, Items.PowerBomb],
 }
 
-def get_available_zone_locations(loadout, zone_name):
-    available_locations = []
-    for location in loadout.game.all_locations.values():
-        if location['fullitemname'] == 'Super Get':
-            pass
-        if location['zone'] == zone_name:
-            if logicExpert.location_logic[location['fullitemname']](loadout):
-                available_locations.append(location)
-    return available_locations
-
 class FillAssumed(FillAlgorithm):
     connections: list[tuple[AreaDoor, AreaDoor]]
 
@@ -118,14 +108,16 @@ class FillAssumed(FillAlgorithm):
 
         for item in forced_zone_items['zone-2']: # TODO shuffle these?
             # find a location the item could be, and then add it to the loadout
-            locations = get_available_zone_locations(loadout, 'zone-2')
+            locations = self._get_available_locations(loadout)
+            locations = [l for l in locations if l['zone'] == 'zone-2']
             forced_locations.append([item, locations])
             loadout.append(item)
 
         # Repeat with zone 3
         for item in forced_zone_items['zone-3']: # TODO shuffle these?
             # find a location the item could be, and then add it to the loadout
-            locations = get_available_zone_locations(loadout, 'zone-3')
+            locations = self._get_available_locations(loadout)
+            locations = [l for l in locations if l['zone'] == 'zone-3']
             forced_locations.append([item, locations])
             loadout.append(item)
         return forced_locations
@@ -212,7 +204,7 @@ class FillAssumed(FillAlgorithm):
         """ removes this item from the item pool """
         pass  # removed in placement function
 
-    def validate(self, locations):
+    def validate(self, game):
         if self.game.options.ascent_fix == 'force':
             zone_items = defaultdict(list)
             for loc in self.game.all_locations.values():
