@@ -150,7 +150,6 @@ class FillAssumed(FillAlgorithm):
         # select an item and a random location from the force list
         forced_item, forced_locations = self.forced_item_locations.pop()
         forced_location = random.choice(forced_locations)
-        print('forcing', forced_item[0], forced_location['fullitemname'], len(forced_locations))
 
         # remove the location from the rest of the force lsit
         for _, locations in self.forced_item_locations:
