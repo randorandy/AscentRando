@@ -56,13 +56,21 @@ class FillAssumed(FillAlgorithm):
         self.connections = game.connections
 
         self.forced_item_locations = []
+        self.plando = []
         # TODO ASCENT_FIX should be a CLI option with choices:
         # force - force items into force item locations
         # duplicate - if necessary, replace a random non-unique item with duplicate key item
         # open - replace brown doors with pink doors to allow backtracking
         # none - do nothing and risk softlock
         if game.options.ascent_fix in ['force', 'duplicate']:
-            self.forced_item_locations = self.get_forced_locations()
+            self.forced_item_locations += self.get_forced_locations()
+
+        if game.options.plando:
+            locations = game.all_locations.values()
+            for loc_name, item_name in game.options.plando.items():
+                location = next(l for l in locations if l['fullitemname'] == loc_name)
+                item = getattr(Items, item_name)
+                self.plando.append([location, item])
 
         # self.earlyItemList = [
         #     Missile,
@@ -157,25 +165,30 @@ class FillAssumed(FillAlgorithm):
         forced_item, forced_locations = self.forced_item_locations.pop()
         forced_location = random.choice(forced_locations)
 
-        # remove the location from the rest of the force lsit
-        self.remove_forced_location(forced_location)
+        self.remove_forced_pair(forced_location, forced_item)
 
-        # remove the item from prog or extra items so it can't be used again
-        if forced_item in self.prog_items:
-            self.prog_items.remove(forced_item)
-        else:
-            self.extra_items.remove(forced_item)
         return forced_location, forced_item
 
-    def remove_forced_location(self, location):
-        # remove the location from the rest of the force lsit
+    def remove_forced_pair(self, location, item):
+        # remove the location from the rest of the force list
         for _, locations in self.forced_item_locations:
             if location in locations:
                 locations.remove(location)
 
+        # remove the item from prog or extra items so it can't be used again
+        if item in self.prog_items:
+            self.prog_items.remove(item)
+        elif item in self.extra_items:
+            self.extra_items.remove(item)
+
     def choose_placement(self,
                          availableLocations: list[Location],
                          loadout: Loadout) -> Optional[tuple[Location, Item]]:
+        if self.plando:
+            location, item = self.plando.pop(0)
+            self.remove_forced_pair(location, item)
+            return location, item
+
         if self.game.options.ascent_fix == 'force' and self.forced_item_locations:
             return self.choose_forced_placement()
 

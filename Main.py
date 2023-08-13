@@ -1,4 +1,5 @@
 from collections import defaultdict
+import json
 import random
 import sys
 import os
@@ -320,6 +321,9 @@ def args_to_game_options(args):
             names = args.pop(0).split(',')
             for name in names:
                 options._inventory[name] += 1
+        elif option == '--plando':
+            with open(args.pop(0)) as f:
+                options.plando = json.load(f)
         else:
             print(f'Warning: unrecognized option "{option}"')
     return options
