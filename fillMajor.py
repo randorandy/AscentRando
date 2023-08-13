@@ -15,15 +15,12 @@ class FillMajor(FillAssumed):
     def __init__(self, game):
         super().__init__(game)
 
-        # Filter forced_item_locations for m/m
+        # Filter forced_locations for m/m
         filtered_item_locations = []
-        for item, locations in self.forced_item_locations:
-            filtered_locations = [
-                loc for loc in locations
-                if match_item_to_location(item, loc)
-            ]
+        for item, locations in self.forced_locations:
+            filtered_locations = self.filter_locations_for_item(locations, item)
             filtered_item_locations.append([item, filtered_locations])
-        self.forced_item_locations = filtered_item_locations
+        self.forced_locations = filtered_item_locations
 
     def filter_locations_for_item(self, locations, item):
         return [
