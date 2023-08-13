@@ -36,9 +36,6 @@ class FillMajor(FillAssumed):
                          loadout: Loadout) -> Optional[tuple[Location, Item]]:
         """ returns (location to place an item, which item to place there) """
 
-        if self.game.options.ascent_fix == 'force' and self.forced_item_locations:
-            return self.choose_forced_placement()
-
         from_items = (
             self.prog_items if len(self.prog_items) else (
                 self.extra_items

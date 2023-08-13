@@ -12,8 +12,11 @@
       [type=checkbox] {
           margin-right: 4px;
       }
-      .ascent-fix-description {
-          padding-left: 16px;
+      .info-link {
+          color: blue;
+          cursor: pointer;
+          display: inline-block;
+          text-decoration: underline dotted;
       }
     </style>
 </head>
@@ -31,33 +34,11 @@
         </select>
     </div>
     <div>
-        <label for="ascent_fix">Ascent Softlock Fix:</label>
-
-        <select name="ascent_fix" id="ascent_fix">
-            <option value="duplicate" selected="selected">Duplicate Key Items</option>
-            <option value="force">Force Key Items</option>
-            <option value="open">Open Past Zones</option>
-            <option value="none">None</option>
-        </select>
-        <div>
-          <div class="ascent-fix-description -force">
-            Key Items are placed in their zones before the rest of the seed is generated
-          </div>
-          <div class="ascent-fix-description -duplicate">
-            If key items are not in their zones, duplicate copies will be placed.
-          </div>
-          <div class="ascent-fix-description -duplicate -force">
-            Zone 1: Morph, Charge, Explosives, Missile<br/>
-            Zone 2: Speed, Varia, Boost Ball and 3 Energy Tanks<br/>
-            Zone 3: Gravity, Space Jump
-          </div>
-          <div class="ascent-fix-description -open">
-            The gray doors preventing backtracking from zone 2 to zone 1 will now be red doors.
-          </div>
-          <div class="ascent-fix-description -none">
-            The game will be unaletered. If you leave an item in a past zone, you softlock.
-          </div>
-        </div>
+        <label for="ascent_fix">
+          <input type="checkbox" id="ascent_fix" checked="checked" />
+          Ascent Softlock Protection
+        </label>
+        <span onClick="showSoftlockHelp()" class="info-link">What's this?</span>
     </div>
     <div id="skill-zone"></div>
     <div>

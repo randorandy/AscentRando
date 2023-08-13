@@ -61,7 +61,7 @@ def roll2(params_str: str) -> None:
     options = GameOptions(
         logic=Expert,
         fill_choice=params["fill_choice"],
-        ascent_fix=params["ascent_fix"],
+        ascent_fix=params.get("ascent_fix", False),
         can=params["can"],
     )
     print(options)

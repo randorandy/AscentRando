@@ -55,16 +55,11 @@ class FillAssumed(FillAlgorithm):
         self.game = game
         self.connections = game.connections
 
-        self.forced_item_locations = []
-        self.plando = []
-        # TODO ASCENT_FIX should be a CLI option with choices:
-        # force - force items into force item locations
-        # duplicate - if necessary, replace a random non-unique item with duplicate key item
-        # open - replace brown doors with pink doors to allow backtracking
-        # none - do nothing and risk softlock
-        if game.options.ascent_fix in ['force', 'duplicate']:
-            self.forced_item_locations += self.get_forced_locations()
+        # This needs to be run now because _get_available_locations requires empty locations
+        if self.game.options.ascent_fix:
+            self.forced_locations = self.get_forced_locations()
 
+        self.plando = []
         if game.options.plando:
             locations = game.all_locations.values()
             for loc_name, item_name in game.options.plando.items():
@@ -160,39 +155,20 @@ class FillAssumed(FillAlgorithm):
                     distribution.append(loc)
         return random.choice(distribution)
 
-    def choose_forced_placement(self):
-        # select an item and a random location from the force list
-        forced_item, forced_locations = self.forced_item_locations.pop()
-        forced_location = random.choice(forced_locations)
-
-        self.remove_forced_pair(forced_location, forced_item)
-
-        return forced_location, forced_item
-
-    def remove_forced_pair(self, location, item):
-        # remove the location from the rest of the force list
-        for _, locations in self.forced_item_locations:
-            if location in locations:
-                locations.remove(location)
-
-        # remove the item from prog or extra items so it can't be used again
-        if item in self.prog_items:
-            self.prog_items.remove(item)
-        elif item in self.extra_items:
-            self.extra_items.remove(item)
-
     def choose_placement(self,
                          availableLocations: list[Location],
                          loadout: Loadout) -> Optional[tuple[Location, Item]]:
+        """ returns (location to place an item, which item to place there) """
         if self.plando:
             location, item = self.plando.pop(0)
-            self.remove_forced_pair(location, item)
+
+            # remove the item from prog or extra items so it can't be used again
+            if item in self.prog_items:
+                self.prog_items.remove(item)
+            elif item in self.extra_items:
+                self.extra_items.remove(item)
+
             return location, item
-
-        if self.game.options.ascent_fix == 'force' and self.forced_item_locations:
-            return self.choose_forced_placement()
-
-        """ returns (location to place an item, which item to place there) """
 
         from_items = (
             self.prog_items if len(self.prog_items) else (
@@ -231,30 +207,28 @@ class FillAssumed(FillAlgorithm):
         return locations
 
     def validate(self, game):
+        if self.game.options.ascent_fix:
+            self.do_ascent_fix()
+
+    def do_ascent_fix(self):
         zone_items = defaultdict(list)
         for loc in self.game.all_locations.values():
             zone_items[loc['zone']].append(loc['item'])
 
         # shallow copy of all locations
-        all_locations = game.all_locations.values()
+        all_locations = self.game.all_locations.values()
         needs_duplicate = []
 
         for zone_name, items in forced_zone_items.items():
             for item in items:
                 if item in zone_items[zone_name]:
-                    # all good, continue loop
                     zone_items[zone_name].remove(item)
-                    continue
-
-                if self.game.options.ascent_fix == 'force':
-                    # item is in wrong zone, throw error, this should never happen
-                    raise ValueError(f'{item[0]} is not in {zone_name}')
-
-                if self.game.options.ascent_fix == 'duplicate':
+                else:
                     needs_duplicate.append(item)
 
+        # print('duplicates:', [i[0] for i in needs_duplicate])
         # remove a minor item from forced locations an replace with item
-        for forced_item, forced_locations in self.forced_item_locations:
+        for forced_item, forced_locations in self.forced_locations:
             if forced_item not in needs_duplicate:
                 # all good, continue loop
                 continue
@@ -264,4 +238,9 @@ class FillAssumed(FillAlgorithm):
                 raise ValueError(f'Unable to place duplicate item{forced_item[0]} in {zone_name}')
             open_location = open_locations[0]
             open_location['item'] = forced_item
-            self.remove_forced_location(open_location)
+
+            # remove the location from the rest of the force list
+            for _, locations in self.forced_locations:
+                if open_location in locations:
+                    locations.remove(open_location)
+

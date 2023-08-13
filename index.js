@@ -49,17 +49,6 @@ function read_input_rom(file) {
     }
 }
 
-const onAscentFixChange = () => {
-    const ascent_fix = document.getElementById("ascent_fix")
-    Array.from(document.querySelectorAll('.ascent-fix-description')).forEach((e) => {
-        e.style.display = 'none'
-    })
-    Array.from(document.querySelectorAll('.-'+ascent_fix.value)).forEach((e) => {
-        e.style.display = 'block'
-    })
-}
-window.addEventListener('load', onAscentFixChange)
-
 function setup_form() {
     if (document.querySelector('py-splashscreen')) {
         // we need to wait for python to load before we can get the skills
@@ -80,12 +69,10 @@ function setup_form() {
         checkbox.checked = true
         label.appendChild(checkbox)
         const span = document.createElement('span')
-        span.innerText = description
+        span.innerText = " " + description
         label.appendChild(span)
         skillZone.appendChild(div)
     })
-    const ascent_fix = document.getElementById("ascent_fix")
-    ascent_fix.addEventListener('input', onAscentFixChange)
 }
 
 
@@ -122,6 +109,17 @@ const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
     return blob;
 }
 
+function showSoftlockHelp() {
+  alert(`Ascent Softlock Proctection:
+
+Because you cannot go backwards after exiting a zone, it's possible to softlock by skipping key items. If enabled, this will ensure the following items are in each zone:
+
+   Zone 1: Morph, Charge, Explosives, Missile
+   Zone 2: Speed, Varia, Boost Ball and 3 Energy Tanks
+   Zone 3: Gravity, Space Jump
+`)
+}
+
 function setup_roll_button() {
     console.log("   -------  setup_roll_button");
     const roll_button = document.getElementById("roll-button");
@@ -133,7 +131,7 @@ function setup_roll_button() {
 
         const params = {
             "fill_choice": fill_select.value,
-            "ascent_fix": ascent_fix.value,
+            "ascent_fix": ascent_fix.checked,
             "can": [],
         };
         Object.keys(SKILLS).forEach((name) => {
