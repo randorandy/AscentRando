@@ -179,7 +179,7 @@ def write_rom(game: Game, romWriter: Optional[RomWriter] = None) -> str:
     # Fix screw attack selection
     romWriter.writeBytes(0x134c5, b"\x0c")
     # Unlink two Varia suits
-    romWriter.writeBytes(0x1c429b, b"\x32") #now plmid:50
+    # romWriter.writeBytes(0x1c429b, b"\x32") #now plmid:50
     # Allow re-entry to zone 1 by removing gray doors
     romWriter.writeBytes(0x1c07c2, b"\x90")
     romWriter.writeBytes(0x1c0836, b"\x90")

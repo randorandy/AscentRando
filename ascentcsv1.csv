@@ -69,7 +69,7 @@ Spazer,0,0,0x1c0ee2,0,0,0,open,0,0,0,Spazer,0,0x1c113c,,zone-2
 Spazer Fountain Missile,0,0,0x1c0ef4,0,0,0,open,0,0,0,Spazer Fountain Missile,0,0,,zone-2
 Gettin Around It Missile,0,0,0x1c1172,0,0,0,open,0,0,0,Gettin Around It Missile,0,0,,zone-2
 Arena of Gates Missile,0,0,0x1c125e,0,0,0,open,0,0,0,Arena of Gates Missile,0,0x1c1232,,zone-2
-Taste the Rainbow Varia,0,0,0x1c4297,0,0,0,open,0,0,0,Taste the Rainbow Varia*,0,0,,zone-2
+Varia,0,0,"0x1c4297,0x1c1154",0,0,0,open,0,0,0,Varia*,0,0,,zone-2
 Taste the Rainbow Missile,0,0,0x1c42a9,0,0,0,open,0,0,0,Taste the Rainbow Missile,0,0,,zone-2
 Drew Shield Super,0,0,0x1c423d,0,0,0,open,0,0,0,Drew Shield Super,0,0,,zone-2
 Missing Trio Super,0,0,0x1c43f9,0,0,0,open,0,0,0,Missing Trio Super,0,0,,zone-2
