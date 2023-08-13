@@ -37,6 +37,12 @@ forced_zone_items = {
     'zone-3': [Items.GravitySuit, Items.SpaceJump, Items.PowerBomb],
 }
 
+# reverse lookup for the above
+forced_item_zone = {}
+for zone_name, items in forced_zone_items.items():
+    for item in items:
+        forced_item_zone[item] = zone_name
+
 class FillAssumed(FillAlgorithm):
     connections: list[tuple[AreaDoor, AreaDoor]]
 
@@ -152,15 +158,20 @@ class FillAssumed(FillAlgorithm):
         forced_location = random.choice(forced_locations)
 
         # remove the location from the rest of the force lsit
-        for _, locations in self.forced_item_locations:
-            if forced_location in locations:
-                locations.remove(forced_location)
+        self.remove_forced_location(forced_location)
 
+        # remove the item from prog or extra items so it can't be used again
         if forced_item in self.prog_items:
             self.prog_items.remove(forced_item)
         else:
             self.extra_items.remove(forced_item)
         return forced_location, forced_item
+
+    def remove_forced_location(self, location):
+        # remove the location from the rest of the force lsit
+        for _, locations in self.forced_item_locations:
+            if location in locations:
+                locations.remove(location)
 
     def choose_placement(self,
                          availableLocations: list[Location],
@@ -203,14 +214,41 @@ class FillAssumed(FillAlgorithm):
         """ removes this item from the item pool """
         pass  # removed in placement function
 
+    def filter_locations_for_item(self, locations, item):
+        return locations
+
     def validate(self, game):
-        if self.game.options.ascent_fix == 'force':
-            zone_items = defaultdict(list)
-            for loc in self.game.all_locations.values():
-                zone_items[loc['zone']].append(loc['item'])
-            for zone, items in forced_zone_items.items():
-                for item in items:
-                    try:
-                        zone_items[zone].remove(item)
-                    except ValueError as e:
-                        raise ValueError(f'{item[0]} is not in {zone}')
+        zone_items = defaultdict(list)
+        for loc in self.game.all_locations.values():
+            zone_items[loc['zone']].append(loc['item'])
+
+        # shallow copy of all locations
+        all_locations = game.all_locations.values()
+        needs_duplicate = []
+
+        for zone_name, items in forced_zone_items.items():
+            for item in items:
+                if item in zone_items[zone_name]:
+                    # all good, continue loop
+                    zone_items[zone_name].remove(item)
+                    continue
+
+                if self.game.options.ascent_fix == 'force':
+                    # item is in wrong zone, throw error, this should never happen
+                    raise ValueError(f'{item[0]} is not in {zone_name}')
+
+                if self.game.options.ascent_fix == 'duplicate':
+                    needs_duplicate.append(item)
+
+        # remove a minor item from forced locations an replace with item
+        for forced_item, forced_locations in self.forced_item_locations:
+            if forced_item not in needs_duplicate:
+                # all good, continue loop
+                continue
+            open_locations = [l for l in forced_locations if l['item'] in _minor_items]
+            if len(open_locations) == 0:
+                zone_name = forced_item_zone[forced_item]
+                raise ValueError(f'Unable to place duplicate item{forced_item[0]} in {zone_name}')
+            open_location = open_locations[0]
+            open_location['item'] = forced_item
+            self.remove_forced_location(open_location)

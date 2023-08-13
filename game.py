@@ -18,7 +18,7 @@ class GameOptions:
     fill_choice: str
     can: list = field(default_factory=lambda: [])
     seed: int = field(default_factory=lambda: random.randint(0, 9999999))
-    ascent_fix: str = field(default_factory= lambda: 'none')
+    ascent_fix: str = field(default_factory= lambda: 'duplicate')
     def get_file_hash(self):
         fill = self.fill_choice[0]
         fix = self.ascent_fix[0]

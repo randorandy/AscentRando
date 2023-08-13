@@ -25,6 +25,12 @@ class FillMajor(FillAssumed):
             filtered_item_locations.append([item, filtered_locations])
         self.forced_item_locations = filtered_item_locations
 
+    def filter_locations_for_item(self, locations, item):
+        return [
+            loc for loc in locations
+            if match_item_to_location(item, loc)
+        ]
+
     def choose_placement(self,
                          availableLocations: list[Location],
                          loadout: Loadout) -> Optional[tuple[Location, Item]]:
@@ -53,10 +59,7 @@ class FillMajor(FillAssumed):
         else:  # extra
             available_locations = self._get_empty_locations(loadout.game.all_locations)
 
-        available_locations = [
-            loc for loc in available_locations
-            if match_item_to_location(item_to_place, loc)
-        ]
+        available_locations = self.filter_locations_for_item(available_locations, item_to_place)
         if len(available_locations) == 0:
             return None
 
