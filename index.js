@@ -28,11 +28,14 @@ function read_input_rom(file) {
         const reader = new FileReader();
         reader.onload = function(e) {
             // binary data
-            console.log(e.target.result.length);
-            console.log(e.target.result.substring(0, 64));
             const expected_begin = "data:application/octet-stream;base64,";
+            const chrome_begin = "data:application/vnd.nintendo.snes.rom;base64,";
             if (e.target.result.substring(0, expected_begin.length) === expected_begin) {
                 rom_data = e.target.result.substring(expected_begin.length);
+            }
+            else if (e.target.result.substring(0, chrome_begin.length) === chrome_begin) {
+                // Linix chrome uses a different encoding MIME type
+                rom_data = e.target.result.substring(chrome_begin.length);
             }
             else {
                 console.error(`unexpected file encoding: ${e.target.result.substring(0, 64)}`);
@@ -45,7 +48,6 @@ function read_input_rom(file) {
         reader.readAsDataURL(file);
     }
 }
-
 
 function setup_form() {
     if (document.querySelector('py-splashscreen')) {
@@ -67,7 +69,7 @@ function setup_form() {
         checkbox.checked = true
         label.appendChild(checkbox)
         const span = document.createElement('span')
-        span.innerText = description
+        span.innerText = " " + description
         label.appendChild(span)
         skillZone.appendChild(div)
     })
@@ -107,6 +109,17 @@ const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
     return blob;
 }
 
+function showSoftlockHelp() {
+  alert(`Ascent Softlock Proctection:
+
+Because you cannot go backwards after exiting a zone, it's possible to softlock by skipping key items. If enabled, this will ensure the following items are in each zone:
+
+   Zone 1: Morph, Charge, Explosives, Missile
+   Zone 2: Speed, Varia, Boost Ball and 3 Energy Tanks
+   Zone 3: Gravity, Space Jump
+`)
+}
+
 function setup_roll_button() {
     console.log("   -------  setup_roll_button");
     const roll_button = document.getElementById("roll-button");
@@ -114,14 +127,15 @@ function setup_roll_button() {
         const activated_trick_names = [];
         
         const fill_select = document.getElementById("fill");
+        const ascent_fix = document.getElementById("ascent_fix");
 
         const params = {
             "fill_choice": fill_select.value,
+            "ascent_fix": ascent_fix.checked,
             "can": [],
         };
         Object.keys(SKILLS).forEach((name) => {
             const checkbox = document.querySelector(`[type=checkbox][name=${name}]`);
-            console.log(checkbox)
             if (checkbox.checked) {
                 params.can.push(name)
             }
@@ -181,6 +195,23 @@ function setup_roll_button() {
             spoiler_a.innerText = `download spoiler ${filename}.spoiler.txt`;
             status_div.appendChild(document.createElement("br"));
             status_div.appendChild(spoiler_a);
+
+            // spoiler toggle
+            const spoiler_button = document.createElement('button');
+            spoiler_button.type = 'button';
+            spoiler_button.innerText = "Toggle Spoilers";
+            spoiler_button.addEventListener('click', () => {
+                const { style } = spoiler_pre;
+                style.display = style.display === 'none' ? 'block' : 'none';
+            })
+            status_div.appendChild(document.createElement("br"));
+            status_div.appendChild(spoiler_button);
+
+            // spoiler display element
+            const spoiler_pre = document.createElement('pre');
+            spoiler_pre.innerText = spoiler_text;
+            spoiler_pre.style.display = 'none';
+            status_div.appendChild(spoiler_pre);
         }
         else {
             status_div.innerText = "failed";

@@ -1,24 +1,47 @@
+from collections import defaultdict
 import random
 from typing import Optional
 
 from connection_data import AreaDoor
 from fillInterface import FillAlgorithm
-from item_data import Item, Items
+from item_data import Item, Items, items_unpackable
 from loadout import Loadout
 from location_data import Location, spacePortLocs
 from solver import solve
+import logicExpert
 
 _minor_items = {
-    Items.Missile: 35,
-    Items.Super: 19,
-    Items.PowerBomb: 7,
+    Items.Missile: 39,
+    Items.Super: 11,
+    Items.PowerBomb: 6,
     Items.Energy: 13,
-    Items.Reserve: 6,
-    Items.Weapon: 5,
+    Items.Reserve: 7,
+    Items.Weapon: 8,
     Items.Spark: 3,
 }
 # TODO: verify item counts
 
+# Placing these items outside these areas opens up the possiblity of softlock
+forced_zone_items = {
+    'zone-1': [Items.Charge, Items.Morph, Items.Bombs, Items.Missile],
+    'zone-2': [
+        Items.Boostball,
+        Items.SpeedBooster,
+        Items.Super,
+        Items.Varia,
+        # need 3 energy tanks to get a shinespark out of zone-2
+        Items.Energy,
+        Items.Energy,
+        Items.Energy,
+    ],
+    'zone-3': [Items.GravitySuit, Items.SpaceJump, Items.PowerBomb],
+}
+
+# reverse lookup for the above
+forced_item_zone = {}
+for zone_name, items in forced_zone_items.items():
+    for item in items:
+        forced_item_zone[item] = zone_name
 
 class FillAssumed(FillAlgorithm):
     connections: list[tuple[AreaDoor, AreaDoor]]
@@ -28,9 +51,21 @@ class FillAssumed(FillAlgorithm):
     extra_items: list[Item]
     itemLists: list[list[Item]]
 
-    def __init__(self,
-                 connections: list[tuple[AreaDoor, AreaDoor]]) -> None:
-        self.connections = connections
+    def __init__(self, game) -> None:
+        self.game = game
+        self.connections = game.connections
+
+        # This needs to be run now because _get_available_locations requires empty locations
+        if self.game.options.ascent_fix:
+            self.forced_locations = self.get_forced_locations()
+
+        self.plando = []
+        if game.options.plando:
+            locations = game.all_locations.values()
+            for loc_name, item_name in game.options.plando.items():
+                location = next(l for l in locations if l['fullitemname'] == loc_name)
+                item = getattr(Items, item_name)
+                self.plando.append([location, item])
 
         # self.earlyItemList = [
         #     Missile,
@@ -69,6 +104,33 @@ class FillAssumed(FillAlgorithm):
 
         self.itemLists = [self.prog_items, self.extra_items]
 
+    def get_forced_locations(self):
+        # This is highly ascent specific
+        # Get locations for the key items in each zone
+        # "With the bare minimum items to access the zone, the key items will reachable
+        forced_locations = []
+        loadout = Loadout(self.game)
+
+        # You can't leave zone one without these so no reason to force them
+        for item in forced_zone_items['zone-1']:
+            loadout.append(item)
+
+        for item in forced_zone_items['zone-2']: # TODO shuffle these?
+            # find a location the item could be, and then add it to the loadout
+            locations = self._get_available_locations(loadout)
+            locations = [l for l in locations if l['zone'] == 'zone-2']
+            forced_locations.append([item, locations])
+            loadout.append(item)
+
+        # Repeat with zone 3
+        for item in forced_zone_items['zone-3']: # TODO shuffle these?
+            # find a location the item could be, and then add it to the loadout
+            locations = self._get_available_locations(loadout)
+            locations = [l for l in locations if l['zone'] == 'zone-3']
+            forced_locations.append([item, locations])
+            loadout.append(item)
+        return forced_locations
+
     def _get_accessible_locations(self, loadout: Loadout) -> list[Location]:
         _, _, locs = solve(loadout.game, loadout)
         return locs
@@ -97,6 +159,16 @@ class FillAssumed(FillAlgorithm):
                          availableLocations: list[Location],
                          loadout: Loadout) -> Optional[tuple[Location, Item]]:
         """ returns (location to place an item, which item to place there) """
+        if self.plando:
+            location, item = self.plando.pop(0)
+
+            # remove the item from prog or extra items so it can't be used again
+            if item in self.prog_items:
+                self.prog_items.remove(item)
+            elif item in self.extra_items:
+                self.extra_items.remove(item)
+
+            return location, item
 
         from_items = (
             self.prog_items if len(self.prog_items) else (
@@ -131,5 +203,44 @@ class FillAssumed(FillAlgorithm):
         """ removes this item from the item pool """
         pass  # removed in placement function
 
-    def validate(self, locations):
-        pass
+    def filter_locations_for_item(self, locations, item):
+        return locations
+
+    def validate(self, game):
+        if self.game.options.ascent_fix:
+            self.do_ascent_fix()
+
+    def do_ascent_fix(self):
+        zone_items = defaultdict(list)
+        for loc in self.game.all_locations.values():
+            zone_items[loc['zone']].append(loc['item'])
+
+        # shallow copy of all locations
+        all_locations = self.game.all_locations.values()
+        needs_duplicate = []
+
+        for zone_name, items in forced_zone_items.items():
+            for item in items:
+                if item in zone_items[zone_name]:
+                    zone_items[zone_name].remove(item)
+                else:
+                    needs_duplicate.append(item)
+
+        # print('duplicates:', [i[0] for i in needs_duplicate])
+        # remove a minor item from forced locations an replace with item
+        for forced_item, forced_locations in self.forced_locations:
+            if forced_item not in needs_duplicate:
+                # all good, continue loop
+                continue
+            open_locations = [l for l in forced_locations if l['item'] in _minor_items]
+            if len(open_locations) == 0:
+                zone_name = forced_item_zone[forced_item]
+                raise ValueError(f'Unable to place duplicate item{forced_item[0]} in {zone_name}')
+            open_location = open_locations[0]
+            open_location['item'] = forced_item
+
+            # remove the location from the rest of the force list
+            for _, locations in self.forced_locations:
+                if open_location in locations:
+                    locations.remove(open_location)
+

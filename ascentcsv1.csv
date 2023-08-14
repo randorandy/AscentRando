@@ -1,111 +1,110 @@
-fullitemname,roomid,area,locids,plmtypeid,plmparamhi,plmparamlo,hiddenness,xy,plmtypename,state,roomname,alternateroomid,alternateroomlocids,alternateroomdifferenthiddenness
-Morph Ball,0,0,0x1c0204,0,0,0,open,0,0,0,Morph Ball,0,0,
-Open Linked Doors Missile,0,0,0x1c07fa,0,0,0,open,0,0,0,Open Linked Doors Missile,0,0,
-Bombs,0,0,0x1c0264,0,0,0,open,0,0,0,Bombs,0,0,
-Charge Beam,0,0,0x1c0b32,0,0,0,open,0,0,0,Charge Beam,0,0,
-Green Giant Energy,0,0,0x1c06ba,0,0,0,open,0,0,0,Green Giant Energy,0,0,
-Green Giant Missile,0,0,0x1c06de,0,0,0,open,0,0,0,Green Giant Missile,0,0,
-Green Giant Reserve,0,0,0x1c06d2,0,0,0,open,0,0,0,Green Giant Reserve,0,0,
-Ascension Begin Missile,0,0,0x1c0018,0,0,0,open,0,0,0,Ascension Begin Missile,0,0,
-Duality Missile,0,0,0x1c04ec,0,0,0,open,0,0,0,Duality Missile,0,0,
-Crystal Glade W Open Energy,0,0,0x1c026e,0,0,0,open,0,0,0,Crystal Glade W Open Energy,0,0,
-Crystal Glade W Hidden Missile,0,0,0x1c0280,0,0,0,open,0,0,0,Crystal Glade W Hidden Missile,0,0,
-Crystal Glade W Bombable Missile,0,0,0x1c0298,0,0,0,open,0,0,0,Crystal Glade W Bombable Missile,0,0,
-Morph Bait Missile,0,0,0x1c021c,0,0,0,open,0,0,0,Morph Bait Missile,0,0,
-My Other Jump 7 Reserve Tank,0,0,0x1c12de,0,0,0,open,0,0,0,My Other Jump 7 Reserve Tank,0,0,
-My Other Jump 7 Energy Tank,0,0,0x1c12e4,0,0,0,open,0,0,0,My Other Jump 7 Energy Tank,0,0,
-My Other Jump 7 Missile,0,0,0x1c12d8,0,0,0,open,0,0,0,My Other Jump 7 Missile,0,0,
-Plasma Beam,0,0,0x1c0486,0,0,0,open,0,0,0,Plasma Beam,0,0,
-Fast Pass Ceiling Missile,0,0,0x1c08e4,0,0,0,open,0,0,0,Fast Pass Ceiling Missile,0,0,
-Fast Pass Middle Missile,0,0,0x1c08ea,0,0,0,open,0,0,0,Fast Pass Middle Missile,0,0,
-HiJump,0,0,0x1c08f0,0,0,0,open,0,0,0,HiJump,0,0,
-Fast Pass Floor Missile,0,0,0x1c0902,0,0,0,open,0,0,0,Fast Pass Floor Missile,0,0,
-Armory Frame Missile,0,0,0x1c065c,0,0,0,open,0,0,0,Armory Frame Missile,0,0,
-Station Plot Missile,0,0,0x1c0506,0,0,0,open,0,0,0,Station Plot Missile,0,0,
-Station Plot Reserve Tank,0,0,0x1c051e,0,0,0,open,0,0,0,Station Plot Reserve Tank,0,0,
-CRE Love Missile,0,0,0x1c0ba4,0,0,0,open,0,0,0,CRE Love Missile,0,0,
-Half Satiation Weapon Upgrade,0,0,0x1c0b2c,0,0,0,open,0,0,0,Half Satiation Weapon Upgrade,0,0,
-He Comes Missile,0,0,0x1c13a0,0,0,0,open,0,0,0,He Comes Missile,0,0,
-No Return Close Missile,0,0,0x1c00fc,0,0,0,open,0,0,0,No Return Close Missile,0,0,
-1x1 Goodness Energy,0,0,0x1c023e,0,0,0,open,0,0,0,1x1 Goodness Energy,0,0,
-Time N Sync Weapon Upgrade,0,0,0x1c07a6,0,0,0,open,0,0,0,Time N Sync Weapon Upgrade,0,0,
-Mst Friends Missile,0,0,0x1c12c4,0,0,0,open,0,0,0,Mst Friends Missile,0,0,
-Linked Doors Intro Missile,0,0,0x1c0948,0,0,0,open,0,0,0,Linked Doors Intro Missile,0,0,
-Volonus Weapon Upgrade,0,0,0x1c11d6,0,0,0,open,0,0,0,Volonus Weapon Upgrade,0,0,
-Generators Core Super,0,0,0x1c09b6,0,0,0,open,0,0,0,Generators Core Super,0,0,
-Speed Booster,0,0,0x1c46b3,0,0,0,open,0,0,0,Speed Booster,0,0,
-Living Presence Energy,0,0,0x1c12fe,0,0,0,open,0,0,0,Living Presence Energy,0,0,
-Chain Reaction Spark Upgrade,0,0,0x1c1db0,0,0,0,open,0,0,0,Chain Reaction Spark Upgrade,0,0,
-Grapple Beam,0,0,0x1c0824,0,0,0,open,0,0,0,Grapple Beam,0,0,
-Easy Choice Super,0,0,0x1c01e2,0,0,0,open,0,0,0,Easy Choice Super,0,0,
-Target Jump Reserve,0,0,0x1c0b24,0,0,0,open,0,0,0,Target Jump Reserve,0,0,
-Closing the Loop Energy Tank,0,0,0x1c11b4,0,0,0,open,0,0,0,Closing the Loop Energy Tank,0,0,
-Burning Curiosity Missile,0,0,0x1c0866,0,0,0,open,0,0,0,Burning Curiosity Missile,0,0,
-Moisture Challenge Weapon Upgrade,0,0,0x1c1290,0,0,0,open,0,0,0,Moisture Challenge Weapon Upgrade,0,0,
-Expand Shaft R Missile,0,0,0x1c0af2,0,0,0,open,0,0,0,Expand Shaft R Missile,0,0,
-Slug Missile,0,0,0x1c0642,0,0,0,open,0,0,0,Slug Missile,0,0,
-Jail Energy,0,0,0x1c04d8,0,0,0,open,0,0,0,Jail Energy,0,0,
-Fullmetal Cor. Missile,0,0,0x1c03bc,0,0,0,open,0,0,0,Fullmetal Cor. Missile,0,0,
-Trap Weapon Upgrade,0,0,0x1c0c44,0,0,0,open,0,0,0,Trap Weapon Upgrade,0,0x1c133c,
-They Excite Me Missile,0,0,0x1c0c36,0,0,0,open,0,0,0,They Excite Me Missile,0,0,
-Expand Shaft L Energy,0,0,0x1c0afa,0,0,0,open,0,0,0,Expand Shaft L Energy,0,0,
-Mount Top Energy,0,0,0x1c4365,0,0,0,open,0,0,0,Mount Top Energy,0,0,
-Big Purp Missile,0,0,0x1c0b66,0,0,0,open,0,0,0,Big Purp Missile,0,0,
-Super Get,0,0,0x1c0aca,0,0,0,open,0,0,0,Super Get,0,0,
-Horseshoe Missile,0,0,0x1c0dd8,0,0,0,open,0,0,0,Horseshoe Missile,0,0,
-Energizer Energy,0,0,0x1c0e0a,0,0,0,open,0,0,0,Energizer Energy,0,0,
-Boost Ball,0,0,0x1c0876,0,0,0,open,0,0,0,Boost Ball,0,0,
-Toxic Air Avoid Super,0,0,0x1c0d30,0,0,0,open,0,0,0,Toxic Air Avoid Super,0,0,
-Toxic Lab East Super,0,0,0x1c0fb8,0,0,0,open,0,0,0,Toxic Lab East Super,0,0,
-Mixing Knowledge Missile,0,0,0x1c0cb0,0,0,0,open,0,0,0,Mixing Knowledge Missile,0,0,
-Explorer Reserve,0,0,0x1c0c04,0,0,0,open,0,0,0,Explorer Reserve,0,0,
-Nestroid Climb Super,0,0,0x1c0c1c,0,0,0,open,0,0,0,Nestroid Climb Super,0,0,
-Gate Prologue Missile,0,0,0x1c4389,0,0,0,open,0,0,0,Gate Prologue Missile,0,0,
-Reflects Trail Weapon Upgrade,0,0,0x1c446f,0,0,0,open,0,0,0,Reflects Trail Weapon Upgrade,0,0,
-Interchange Missile,0,0,0x1c4503,0,0,0,open,0,0,0,Interchange Missile,0,0,
-Bio Kamers Super,0,0,0x1c11c2,0,0,0,open,0,0,0,Bio Kamers Super,0,0,
-Endgame Blockade Spark Upgrade,0,0,0x1c0ffe,0,0,0,open,0,0,0,Endgame Blockade Spark Upgrade,0,0,
-Spazer,0,0,0x1c0ee2,0,0,0,open,0,0,0,Spazer,0,0x1c113c,
-Spazer Fountain Missile,0,0,0x1c0ef4,0,0,0,open,0,0,0,Spazer Fountain Missile,0,0,
-Gettin Around It Varia,0,0,0x1c1154,0,0,0,open,0,0,0,Gettin Around It Varia,0,0x1c0eee,
-Gettin Around It Missile,0,0,0x1c1172,0,0,0,open,0,0,0,Gettin Around It Missile,0,0,
-Arena of Gates Missile,0,0,0x1c125e,0,0,0,open,0,0,0,Arena of Gates Missile,0,0x1c1232,
-Taste the Rainbow Varia,0,0,0x1c4297,0,0,0,open,0,0,0,Taste the Rainbow Varia*,0,0,
-Taste the Rainbow Missile,0,0,0x1c42a9,0,0,0,open,0,0,0,Taste the Rainbow Missile,0,0,
-Drew Shield Super,0,0,0x1c423d,0,0,0,open,0,0,0,Drew Shield Super,0,0,
-Missing Trio Super,0,0,0x1c43f9,0,0,0,open,0,0,0,Missing Trio Super,0,0,
-Blocus Super,0,0,0x1c0c4c,0,0,0,open,0,0,0,Blocus Super,0,0,
-Bridge of Faith Power Bomb,0,0,0x1c0ce0,0,0,0,open,0,0,0,Bridge of Faith Power Bomb,0,0,
-Bridge of Faith Super Missile,0,0,0x1c0cda,0,0,0,open,0,0,0,Bridge of Faith Super Missile,0,0,
-The Meeting Room Missile,0,0,0x1c442b,0,0,0,open,0,0,0,The Meeting Room Missile,0,0x1c0d80,
-West Shaft Missile,0,0,0x1c15ce,0,0,0,open,0,0,0,West Shaft Missile,0,0,
-West Shaft Reserve,0,0,0x1c15d4,0,0,0,open,0,0,0,West Shaft Reserve,0,0,
-Roundabout Missile,0,0,0x1c45d3,0,0,0,open,0,0,0,Roundabout Missile,0,0,
-Oums Lovin Super,0,0,0x1c09f4,0,0,0,open,0,0,0,Oums Lovin Super,0,0,
-Oums Lovin Power Bomb,0,0,0x1c09fa,0,0,0,open,0,0,0,Oums Lovin Power Bomb,0,0,
-Roomception Power Bomb,0,0,0x1c4703,0,0,0,open,0,0,0,Roomception Power Bomb,0,0x1c150c,
-Wave Beam,0,0,0x1c152c,0,0,0,open,0,0,0,Wave Beam,0,0,
-Dman Playground Missile,0,0,0x1c475d,0,0,0,open,0,0,0,Dman Playground Missile,0,0,
-Abyss Main Energy,0,0,0x1c1e14,0,0,0,open,0,0,0,Abyss Main Energy,0,0,
-Abyss Main Spark Upgrade,0,0,0x1c1e1a,0,0,0,open,0,0,0,Abyss Main Spark Upgrade,0,0,
-Pushy Blocks Weapon Upgrade,0,0,0x1c4611,0,0,0,open,0,0,0,Pushy Blocks Weapon Upgrade,0,0,
-Airborne Terror Missile,0,0,0x1c1552,0,0,0,open,0,0,0,Airborne Terror Missile,0,0,
-Freebie Power Bomb,0,0,0x1c1d4e,0,0,0,open,0,0,0,Freebie Power Bomb,0,0,
-Forgotten Room Reserve,0,0,0x1c148c,0,0,0,open,0,0,0,Forgotten Room Reserve,0,0,
-Forgotten Room Missile,0,0,0x1c1498,0,0,0,open,0,0,0,Forgotten Room Missile,0,0,
-Ice Beam,0,0,0x1c4215,0,0,0,open,0,0,0,Ice Beam,0,0,
-Space Jump,0,0,0x1c1790,0,0,0,open,0,0,0,Space Jump,0,0,
-Tower of Doom Power Bomb,0,0,0x1c1796,0,0,0,open,0,0,0,Tower of Doom Power Bomb,0,0,
-Above is Easier Reserve,0,0,0x1c4337,0,0,0,open,0,0,0,Above is Easier Reserve,0,0,
-Dual Traverses Missile,0,0,0x1c44f5,0,0,0,open,0,0,0,Dual Traverses Missile,0,0,
-Best Beam Hard Energy,0,0,0x1c4889,0,0,0,open,0,0,0,Best Beam Hard Energy,0,0,
-No Dmg Accepted Power Bomb,0,0,0x1c1a34,0,0,0,open,0,0,0,No Dmg Accepted Power Bomb,0,0,
-Pbs Limited Radius Weapon Upgrade,0,0,0x1c0250,0,0,0,open,0,0,0,Pbs Limited Radius Weapon Upgrade,0,0,
-Another Use Missile,0,0,0x1c145a,0,0,0,open,0,0,0,Another Use Missile,0,0,
-Gravity Suit,0,0,0x1c1422,0,0,0,open,0,0,0,Gravity Suit,0,0,
-Water Logged Energy,0,0,0x1c1410,0,0,0,open,0,0,0,Water Logged Energy,0,0,
-HP Killer Energy,0,0,0x1c46e5,0,0,0,open,0,0,0,HP Killer Energy,0,0,
-Mind Puzzled Spark Upgrade,0,0,0x1c1776,0,0,0,open,0,0,0,Mind Puzzled Spark Upgrade,0,0,
-Mind Puzzled Weapon Upgrade,0,0,0x1c1764,0,0,0,open,0,0,0,Mind Puzzled Weapon Upgrade,0,0,
-Screw Attack,0,0,0x1c167a,0,0,0,open,0,0,0,Screw Attack,0,0x1c1c36,
-Mixed Dangers Power Bomb,0,0,0x1c1698,0,0,0,open,0,0,0,Mixed Dangers Power Bomb,0,0x1c1c54,
+fullitemname,roomid,area,locids,plmtypeid,plmparamhi,plmparamlo,hiddenness,xy,plmtypename,state,roomname,alternateroomid,alternateroomlocids,alternateroomdifferenthiddenness,zone
+Morph Ball,0,0,0x1c0204,0,0,0,open,0,0,0,Morph Ball,0,0,,zone-1
+Open Linked Doors Missile,0,0,0x1c07fa,0,0,0,open,0,0,0,Open Linked Doors Missile,0,0,,zone-1
+Bombs,0,0,0x1c0264,0,0,0,open,0,0,0,Bombs,0,0,,zone-1
+Charge Beam,0,0,0x1c0b32,0,0,0,open,0,0,0,Charge Beam,0,0,,zone-1
+Green Giant Energy,0,0,0x1c06ba,0,0,0,open,0,0,0,Green Giant Energy,0,0,,zone-1
+Green Giant Missile,0,0,0x1c06de,0,0,0,open,0,0,0,Green Giant Missile,0,0,,zone-1
+Green Giant Reserve,0,0,0x1c06d2,0,0,0,open,0,0,0,Green Giant Reserve,0,0,,zone-1
+Ascension Begin Missile,0,0,0x1c0018,0,0,0,open,0,0,0,Ascension Begin Missile,0,0,,zone-1
+Duality Missile,0,0,0x1c04ec,0,0,0,open,0,0,0,Duality Missile,0,0,,zone-1
+Crystal Glade W Open Energy,0,0,0x1c026e,0,0,0,open,0,0,0,Crystal Glade W Open Energy,0,0,,zone-1
+Crystal Glade W Hidden Missile,0,0,0x1c0280,0,0,0,open,0,0,0,Crystal Glade W Hidden Missile,0,0,,zone-1
+Crystal Glade W Bombable Missile,0,0,0x1c0298,0,0,0,open,0,0,0,Crystal Glade W Bombable Missile,0,0,,zone-1
+Morph Bait Missile,0,0,0x1c021c,0,0,0,open,0,0,0,Morph Bait Missile,0,0,,zone-1
+My Other Jump 7 Reserve Tank,0,0,0x1c12de,0,0,0,open,0,0,0,My Other Jump 7 Reserve Tank,0,0,,zone-1
+My Other Jump 7 Energy Tank,0,0,0x1c12e4,0,0,0,open,0,0,0,My Other Jump 7 Energy Tank,0,0,,zone-1
+My Other Jump 7 Missile,0,0,0x1c12d8,0,0,0,open,0,0,0,My Other Jump 7 Missile,0,0,,zone-1
+Plasma Beam,0,0,0x1c0486,0,0,0,open,0,0,0,Plasma Beam,0,0,,zone-1
+Fast Pass Ceiling Missile,0,0,0x1c08e4,0,0,0,open,0,0,0,Fast Pass Ceiling Missile,0,0,,zone-1
+Fast Pass Middle Missile,0,0,0x1c08ea,0,0,0,open,0,0,0,Fast Pass Middle Missile,0,0,,zone-1
+HiJump,0,0,0x1c08f0,0,0,0,open,0,0,0,HiJump,0,0,,zone-1
+Fast Pass Floor Missile,0,0,0x1c0902,0,0,0,open,0,0,0,Fast Pass Floor Missile,0,0,,zone-1
+Armory Frame Missile,0,0,0x1c065c,0,0,0,open,0,0,0,Armory Frame Missile,0,0,,zone-1
+Station Plot Missile,0,0,0x1c0506,0,0,0,open,0,0,0,Station Plot Missile,0,0,,zone-1
+Station Plot Reserve Tank,0,0,0x1c051e,0,0,0,open,0,0,0,Station Plot Reserve Tank,0,0,,zone-1
+CRE Love Missile,0,0,0x1c0ba4,0,0,0,open,0,0,0,CRE Love Missile,0,0,,zone-1
+Half Satiation Weapon Upgrade,0,0,0x1c0b2c,0,0,0,open,0,0,0,Half Satiation Weapon Upgrade,0,0,,zone-1
+He Comes Missile,0,0,0x1c13a0,0,0,0,open,0,0,0,He Comes Missile,0,0,,zone-1
+No Return Close Missile,0,0,0x1c00fc,0,0,0,open,0,0,0,No Return Close Missile,0,0,,zone-1
+1x1 Goodness Energy,0,0,0x1c023e,0,0,0,open,0,0,0,1x1 Goodness Energy,0,0,,zone-1
+Time N Sync Weapon Upgrade,0,0,0x1c07a6,0,0,0,open,0,0,0,Time N Sync Weapon Upgrade,0,0,,zone-1
+Mst Friends Missile,0,0,0x1c12c4,0,0,0,open,0,0,0,Mst Friends Missile,0,0,,zone-1
+Linked Doors Intro Missile,0,0,0x1c0948,0,0,0,open,0,0,0,Linked Doors Intro Missile,0,0,,zone-1
+Volonus Weapon Upgrade,0,0,0x1c11d6,0,0,0,open,0,0,0,Volonus Weapon Upgrade,0,0,,zone-1
+Generators Core Super,0,0,0x1c09b6,0,0,0,open,0,0,0,Generators Core Super,0,0,,zone-1
+Speed Booster,0,0,0x1c46b3,0,0,0,open,0,0,0,Speed Booster,0,0,,zone-2
+Living Presence Energy,0,0,0x1c12fe,0,0,0,open,0,0,0,Living Presence Energy,0,0,,zone-2
+Chain Reaction Spark Upgrade,0,0,0x1c1db0,0,0,0,open,0,0,0,Chain Reaction Spark Upgrade,0,0,,zone-2
+Grapple Beam,0,0,0x1c0824,0,0,0,open,0,0,0,Grapple Beam,0,0,,zone-2
+Easy Choice Super,0,0,0x1c01e2,0,0,0,open,0,0,0,Easy Choice Super,0,0,,zone-2
+Target Jump Reserve,0,0,0x1c0b24,0,0,0,open,0,0,0,Target Jump Reserve,0,0,,zone-2
+Closing the Loop Energy Tank,0,0,0x1c11b4,0,0,0,open,0,0,0,Closing the Loop Energy Tank,0,0,,zone-2
+Burning Curiosity Missile,0,0,0x1c0866,0,0,0,open,0,0,0,Burning Curiosity Missile,0,0,,zone-2
+Moisture Challenge Weapon Upgrade,0,0,0x1c1290,0,0,0,open,0,0,0,Moisture Challenge Weapon Upgrade,0,0,,zone-2
+Expand Shaft R Missile,0,0,0x1c0af2,0,0,0,open,0,0,0,Expand Shaft R Missile,0,0,,zone-2
+Slug Missile,0,0,0x1c0642,0,0,0,open,0,0,0,Slug Missile,0,0,,zone-2
+Jail Energy,0,0,0x1c04d8,0,0,0,open,0,0,0,Jail Energy,0,0,,zone-2
+Fullmetal Cor. Missile,0,0,0x1c03bc,0,0,0,open,0,0,0,Fullmetal Cor. Missile,0,0,,zone-2
+Trap Weapon Upgrade,0,0,0x1c0c44,0,0,0,open,0,0,0,Trap Weapon Upgrade,0,0x1c133c,,zone-2
+They Excite Me Missile,0,0,0x1c0c36,0,0,0,open,0,0,0,They Excite Me Missile,0,0,,zone-2
+Expand Shaft L Energy,0,0,0x1c0afa,0,0,0,open,0,0,0,Expand Shaft L Energy,0,0,,zone-2
+Mount Top Energy,0,0,0x1c4365,0,0,0,open,0,0,0,Mount Top Energy,0,0,,zone-2
+Big Purp Missile,0,0,0x1c0b66,0,0,0,open,0,0,0,Big Purp Missile,0,0,,zone-2
+Super Get,0,0,0x1c0aca,0,0,0,open,0,0,0,Super Get,0,0,,zone-2
+Horseshoe Missile,0,0,0x1c0dd8,0,0,0,open,0,0,0,Horseshoe Missile,0,0,,zone-2
+Energizer Energy,0,0,0x1c0e0a,0,0,0,open,0,0,0,Energizer Energy,0,0,,zone-2
+Boost Ball,0,0,0x1c0876,0,0,0,open,0,0,0,Boost Ball,0,0,,zone-2
+Toxic Air Avoid Super,0,0,0x1c0d30,0,0,0,open,0,0,0,Toxic Air Avoid Super,0,0,,zone-2
+Toxic Lab East Super,0,0,0x1c0fb8,0,0,0,open,0,0,0,Toxic Lab East Super,0,0,,zone-2
+Mixing Knowledge Missile,0,0,0x1c0cb0,0,0,0,open,0,0,0,Mixing Knowledge Missile,0,0,,zone-2
+Explorer Reserve,0,0,0x1c0c04,0,0,0,open,0,0,0,Explorer Reserve,0,0,,zone-2
+Nestroid Climb Super,0,0,0x1c0c1c,0,0,0,open,0,0,0,Nestroid Climb Super,0,0,,zone-2
+Gate Prologue Missile,0,0,0x1c4389,0,0,0,open,0,0,0,Gate Prologue Missile,0,0,,zone-2
+Reflects Trail Weapon Upgrade,0,0,0x1c446f,0,0,0,open,0,0,0,Reflects Trail Weapon Upgrade,0,0,,zone-2
+Interchange Missile,0,0,0x1c4503,0,0,0,open,0,0,0,Interchange Missile,0,0,,zone-2
+Bio Kamers Super,0,0,0x1c11c2,0,0,0,open,0,0,0,Bio Kamers Super,0,0,,zone-2
+Endgame Blockade Spark Upgrade,0,0,0x1c0ffe,0,0,0,open,0,0,0,Endgame Blockade Spark Upgrade,0,0,,zone-2
+Spazer,0,0,0x1c0ee2,0,0,0,open,0,0,0,Spazer,0,0x1c113c,,zone-2
+Spazer Fountain Missile,0,0,0x1c0ef4,0,0,0,open,0,0,0,Spazer Fountain Missile,0,0,,zone-2
+Gettin Around It Missile,0,0,0x1c1172,0,0,0,open,0,0,0,Gettin Around It Missile,0,0,,zone-2
+Arena of Gates Missile,0,0,0x1c125e,0,0,0,open,0,0,0,Arena of Gates Missile,0,0x1c1232,,zone-2
+Varia,0,0,"0x1c4297,0x1c1154",0,0,0,open,0,0,0,Varia*,0,0,,zone-2
+Taste the Rainbow Missile,0,0,0x1c42a9,0,0,0,open,0,0,0,Taste the Rainbow Missile,0,0,,zone-2
+Drew Shield Super,0,0,0x1c423d,0,0,0,open,0,0,0,Drew Shield Super,0,0,,zone-2
+Missing Trio Super,0,0,0x1c43f9,0,0,0,open,0,0,0,Missing Trio Super,0,0,,zone-2
+Blocus Super,0,0,0x1c0c4c,0,0,0,open,0,0,0,Blocus Super,0,0,,zone-3
+Bridge of Faith Power Bomb,0,0,0x1c0ce0,0,0,0,open,0,0,0,Bridge of Faith Power Bomb,0,0,,zone-3
+Bridge of Faith Super Missile,0,0,0x1c0cda,0,0,0,open,0,0,0,Bridge of Faith Super Missile,0,0,,zone-3
+The Meeting Room Missile,0,0,0x1c442b,0,0,0,open,0,0,0,The Meeting Room Missile,0,0x1c0d80,,zone-3
+West Shaft Missile,0,0,0x1c15ce,0,0,0,open,0,0,0,West Shaft Missile,0,0,,zone-3
+West Shaft Reserve,0,0,0x1c15d4,0,0,0,open,0,0,0,West Shaft Reserve,0,0,,zone-3
+Roundabout Missile,0,0,0x1c45d3,0,0,0,open,0,0,0,Roundabout Missile,0,0,,zone-3
+Oums Lovin Super,0,0,0x1c09f4,0,0,0,open,0,0,0,Oums Lovin Super,0,0,,zone-3
+Oums Lovin Power Bomb,0,0,0x1c09fa,0,0,0,open,0,0,0,Oums Lovin Power Bomb,0,0,,zone-3
+Roomception Power Bomb,0,0,0x1c4703,0,0,0,open,0,0,0,Roomception Power Bomb,0,0x1c150c,,zone-3
+Wave Beam,0,0,0x1c152c,0,0,0,open,0,0,0,Wave Beam,0,0,,zone-3
+Dman Playground Missile,0,0,0x1c475d,0,0,0,open,0,0,0,Dman Playground Missile,0,0,,zone-3
+Abyss Main Energy,0,0,0x1c1e14,0,0,0,open,0,0,0,Abyss Main Energy,0,0,,zone-3
+Abyss Main Spark Upgrade,0,0,0x1c1e1a,0,0,0,open,0,0,0,Abyss Main Spark Upgrade,0,0,,zone-3
+Pushy Blocks Weapon Upgrade,0,0,0x1c4611,0,0,0,open,0,0,0,Pushy Blocks Weapon Upgrade,0,0,,zone-3
+Airborne Terror Missile,0,0,0x1c1552,0,0,0,open,0,0,0,Airborne Terror Missile,0,0,,zone-3
+Freebie Power Bomb,0,0,0x1c1d4e,0,0,0,open,0,0,0,Freebie Power Bomb,0,0,,zone-3
+Forgotten Room Reserve,0,0,0x1c148c,0,0,0,open,0,0,0,Forgotten Room Reserve,0,0,,zone-3
+Forgotten Room Missile,0,0,0x1c1498,0,0,0,open,0,0,0,Forgotten Room Missile,0,0,,zone-3
+Ice Beam,0,0,0x1c4215,0,0,0,open,0,0,0,Ice Beam,0,0,,zone-3
+Space Jump,0,0,0x1c1790,0,0,0,open,0,0,0,Space Jump,0,0,,zone-3
+Tower of Doom Power Bomb,0,0,0x1c1796,0,0,0,open,0,0,0,Tower of Doom Power Bomb,0,0,,zone-3
+Above is Easier Reserve,0,0,0x1c4337,0,0,0,open,0,0,0,Above is Easier Reserve,0,0,,zone-3
+Dual Traverses Missile,0,0,0x1c44f5,0,0,0,open,0,0,0,Dual Traverses Missile,0,0,,zone-3
+Best Beam Hard Energy,0,0,0x1c4889,0,0,0,open,0,0,0,Best Beam Hard Energy,0,0,,zone-3
+No Dmg Accepted Power Bomb,0,0,0x1c1a34,0,0,0,open,0,0,0,No Dmg Accepted Power Bomb,0,0,,zone-3
+Pbs Limited Radius Weapon Upgrade,0,0,0x1c0250,0,0,0,open,0,0,0,Pbs Limited Radius Weapon Upgrade,0,0,,zone-3
+Another Use Missile,0,0,0x1c145a,0,0,0,open,0,0,0,Another Use Missile,0,0,,zone-3
+Gravity Suit,0,0,0x1c1422,0,0,0,open,0,0,0,Gravity Suit,0,0,,zone-3
+Water Logged Energy,0,0,0x1c1410,0,0,0,open,0,0,0,Water Logged Energy,0,0,,zone-3
+HP Killer Energy,0,0,0x1c46e5,0,0,0,open,0,0,0,HP Killer Energy,0,0,,zone-3
+Mind Puzzled Spark Upgrade,0,0,0x1c1776,0,0,0,open,0,0,0,Mind Puzzled Spark Upgrade,0,0,,zone-3
+Mind Puzzled Weapon Upgrade,0,0,0x1c1764,0,0,0,open,0,0,0,Mind Puzzled Weapon Upgrade,0,0,,zone-3
+Screw Attack,0,0,0x1c167a,0,0,0,open,0,0,0,Screw Attack,0,0x1c1c36,,zone-3
+Mixed Dangers Power Bomb,0,0,0x1c1698,0,0,0,open,0,0,0,Mixed Dangers Power Bomb,0,0x1c1c54,,zone-3

@@ -1,3 +1,5 @@
+from collections import defaultdict
+import json
 import random
 import sys
 import os
@@ -114,7 +116,7 @@ def assumed_fill(game: Game) -> tuple[bool]:
         loc["item"] = None
     dummy_locations: list[Location] = []
     loadout = Loadout(game)
-    fill_algorithm = fillers[game.options.fill_choice](game.connections)
+    fill_algorithm = fillers[game.options.fill_choice](game)
     n_items_to_place = fill_algorithm.count_items_remaining()
     assert n_items_to_place <= len(game.all_locations), \
         f"{n_items_to_place} items to put in {len(game.all_locations)} locations"
@@ -151,7 +153,7 @@ def write_rom(game: Game, romWriter: Optional[RomWriter] = None) -> str:
 
 
     rom_clean_path = "roms/Ascent.sfc"
-    rom_name = f"Ascent{game.options.seed}.sfc"
+    rom_name = f"Ascent{game.options.get_file_hash()}.sfc"
     rom1_path = f"roms/{rom_name}"
 
     if romWriter is None :
@@ -178,7 +180,7 @@ def write_rom(game: Game, romWriter: Optional[RomWriter] = None) -> str:
     # Fix screw attack selection
     romWriter.writeBytes(0x134c5, b"\x0c")
     # Unlink two Varia suits
-    romWriter.writeBytes(0x1c429b, b"\x32") #now plmid:50
+    # romWriter.writeBytes(0x1c429b, b"\x32") #now plmid:50
     # Allow re-entry to zone 1 by removing gray doors
     romWriter.writeBytes(0x1c07c2, b"\x90")
     romWriter.writeBytes(0x1c0836, b"\x90")
@@ -287,15 +289,14 @@ def forward_fill(game: Game,
     return False, spoilerSave
 
 
-if __name__ == "__main__":
-    import time
-    t0 = time.perf_counter()
+def args_to_game_options(args):
+    args = args[:]
     options = GameOptions(
         logic=Expert,
         fill_choice='D',
         can=[],
     )
-    args = sys.argv[1:]
+    options._inventory = defaultdict(int)
     while args:
         option = args.pop(0)
         if option in ['-l', '--logic']:
@@ -314,9 +315,25 @@ if __name__ == "__main__":
             options.fill_choice = 'MM'
         elif option == '--can':
             options.can = args.pop(0).split(',')
+        elif option == '--no-ascent-fix':
+            options.ascent_fix = False
+        elif option == '--inventory':
+            names = args.pop(0).split(',')
+            for name in names:
+                options._inventory[name] += 1
+        elif option == '--plando':
+            with open(args.pop(0)) as f:
+                options.plando = json.load(f)
         else:
             print(f'Warning: unrecognized option "{option}"')
+    return options
 
-    Main(options)
+if __name__ == "__main__":
+    import time
+    t0 = time.perf_counter()
+    args = sys.argv[1:]
+    game_options = args_to_game_options(args)
+
+    Main(game_options)
     t1 = time.perf_counter()
     print(f"time taken: {t1 - t0}")

@@ -12,6 +12,12 @@
       [type=checkbox] {
           margin-right: 4px;
       }
+      .info-link {
+          color: blue;
+          cursor: pointer;
+          display: inline-block;
+          text-decoration: underline dotted;
+      }
     </style>
 </head>
 <body>
@@ -20,14 +26,21 @@
         <input type="file" id="rom" name="rom" accept=".sfc, .smc" />
     </div>
     <div>
-        <label for="fill">fill:</label>
+        <label for="fill">Item Fill Strategy:</label>
 
         <select name="fill" id="fill">
             <option value="D" selected="selected">full random</option>
             <option value="MM">major/minor</option>
-        </select> 
-        <div id="skill-zone"></div>
+        </select>
     </div>
+    <div>
+        <label for="ascent_fix">
+          <input type="checkbox" id="ascent_fix" checked="checked" />
+          Ascent Softlock Protection
+        </label>
+        <span onClick="showSoftlockHelp()" class="info-link">What's this?</span>
+    </div>
+    <div id="skill-zone"></div>
     <div>
         <button id="roll-button">roll</button><br /><span>Generation can take up to 90 seconds, and your browser might stop responding.</span>
     </div>

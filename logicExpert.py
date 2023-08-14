@@ -498,9 +498,11 @@ location_logic: LocationLogicType = {
     "Spazer Fountain Missile": lambda loadout: (
         (zone2 in loadout)
     ),
-    "Gettin Around It Varia": lambda loadout: (
-        (zone2 in loadout) and
-        (Super in loadout)
+    "Varia": lambda loadout: (
+        (zone2 in loadout) and (
+            (Super in loadout) or
+            (hellrun4 in loadout)
+        )
     ),
     "Gettin Around It Missile": lambda loadout: (
         (zone2 in loadout) and
@@ -508,10 +510,6 @@ location_logic: LocationLogicType = {
     ),
     "Arena of Gates Missile": lambda loadout: (
         (toxiclab2 in loadout)
-    ),
-    "Taste the Rainbow Varia": lambda loadout: (
-        (zone2 in loadout) and
-        (hellrun4 in loadout)
     ),
     "Taste the Rainbow Missile": lambda loadout: (
         (zone2 in loadout) and

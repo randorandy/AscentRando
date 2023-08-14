@@ -3,12 +3,8 @@ from typing import Optional
 
 from fillAssumed import FillAssumed
 from item_data import Item, Items
-from location_data import majorLocs
-from location_data import Location
+from location_data import majorLocs, Location
 from loadout import Loadout
-
-def is_major(item):
-    return item not in [Items.Missile, Items.Super, Items.PowerBomb]
 
 def match_item_to_location(item, location):
     major_item = item not in [Items.Missile, Items.Super, Items.PowerBomb]
@@ -16,8 +12,21 @@ def match_item_to_location(item, location):
     return major_item == major_location
 
 class FillMajor(FillAssumed):
-    def __init__(self, connections):
-        super().__init__(connections)
+    def __init__(self, game):
+        super().__init__(game)
+
+        # Filter forced_locations for m/m
+        filtered_item_locations = []
+        for item, locations in self.forced_locations:
+            filtered_locations = self.filter_locations_for_item(locations, item)
+            filtered_item_locations.append([item, filtered_locations])
+        self.forced_locations = filtered_item_locations
+
+    def filter_locations_for_item(self, locations, item):
+        return [
+            loc for loc in locations
+            if match_item_to_location(item, loc)
+        ]
 
     def choose_placement(self,
                          availableLocations: list[Location],
@@ -44,10 +53,7 @@ class FillMajor(FillAssumed):
         else:  # extra
             available_locations = self._get_empty_locations(loadout.game.all_locations)
 
-        available_locations = [
-            loc for loc in available_locations
-            if match_item_to_location(item_to_place, loc)
-        ]
+        available_locations = self.filter_locations_for_item(available_locations, item_to_place)
         if len(available_locations) == 0:
             return None
 
@@ -56,5 +62,6 @@ class FillMajor(FillAssumed):
         return self._choose_location(available_locations, 2), item_to_place
 
     def validate(self, game):
+        super().validate(game)
         for location in game.all_locations.values():
             assert match_item_to_location(location['item'], location)
